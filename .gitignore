@@ -1,0 +1,4 @@
+*.env*
+*.scanner*
+*node_modules*
+sonar-project.properties

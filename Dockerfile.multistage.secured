@@ -1,0 +1,18 @@
+FROM node:20-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+
+FROM node:20-alpine
+WORKDIR /app
+COPY --from=build /app/node_modules ./node_modules
+COPY server.js ./
+COPY package.json ./
+RUN addgroup -S appgroup && \
+    adduser -S appuser -G appgroup && \
+    mkdir -p /app/logs && \
+    chown -R appuser:appgroup /app/logs
+USER appuser
+EXPOSE 3000
+ENTRYPOINT ["node"]
+CMD ["server.js", "development"]
