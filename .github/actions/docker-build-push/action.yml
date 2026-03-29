@@ -18,16 +18,20 @@ runs:
         password: ${{ inputs.password }}
 
     - name: Build Docker image
+      shell: bash
       run: docker build -f Dockerfile.distroless -t dockerfile-distroless .
 
     - name: Set Docker tag
+      shell: bash
       run: echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
         
     - name: Tag Docker image
+      shell: bash
       run: |
         SHORT_SHA=${GITHUB_SHA::7}
         docker tag dockerfile-distroless ${{ inputs.username }}/nodeapp:$SHORT_SHA
 
     - name: Push Image
+      shell: bash
       run: |
         docker push ${{ inputs.username }}/nodeapp:$SHORT_SHA  
