@@ -27,8 +27,8 @@ runs:
 
     - name: Tag Docker image
       shell: bash
-      run: docker tag dockerfile-distroless ${{ vars.DOCKERHUB_USERNAME }}/nodeapp:$SHORT_SHA
+      run: docker tag dockerfile-distroless ${{ inputs.username }}/nodeapp:$SHORT_SHA
 
     - name: Push Image
       shell: bash
-      run: docker push ${{ vars.DOCKERHUB_USERNAME }}/nodeapp:$SHORT_SHA
+      run: docker push ${{ inputs.username }}/nodeapp:$SHORT_SHA
